@@ -17,6 +17,7 @@ This project was built using **Visual Studio 2012** and targets **.NET Framework
 * Drag & Drop support and separate injection controls for `.elf` and `.bin` files
 * Manual input for target IP address and port
 * Integrated ELF loader for PS4 and PS5
+* Default transfer packet size reduced to **8 KB** to improve reliability over unstable networks
 * Clean, dark-themed interface
 
 ---
