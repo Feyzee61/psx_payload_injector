@@ -75,4 +75,4 @@ See the [LICENSE](LICENSE) file for more information.
 
 For questions or issues, please open a GitHub issue on this repository.
 
-*Developed by Feyzee — Payload Injector v1.0*
+---
