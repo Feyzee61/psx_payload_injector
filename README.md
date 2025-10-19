@@ -49,13 +49,12 @@ This project was built using **Visual Studio 2012** and targets **.NET Framework
 4. Verify the port number (default values are pre-filled).
 5. Click the `Inject` button to start sending the payload.
 
-> This project can be used to **send and execute the AirPSX ELF payload**, available at [AirPSX GitHub Repository](https://github.com/barisyild/airpsx). Ensure that your PS4 or PS5 environment is prepared to receive ELF payloads before using this tool.
+> This project can be used to **send and execute the AirPSX ELF payload**, available at [AirPSX GitHub Repository](https://github.com/barisyild/airpsx).
 
 ---
 
 ## Security & Disclaimer
 
-* The payload transfer occurs **unencrypted** over TCP. Ensure your local network is secure.
 * Sending invalid or incompatible payloads may cause your console to crash, reboot, or become unresponsive.
 * Always verify payload integrity and comply with applicable laws when using or distributing this software.
 
