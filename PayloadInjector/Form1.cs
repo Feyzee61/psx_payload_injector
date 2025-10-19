@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
@@ -322,6 +323,26 @@ namespace PayloadInjector
             SendPayload(PayloadType.ElfFile);
         }
 
+        // Ping target
+        public static bool PingHost(string ip)
+        {
+            var p = new Ping();
+            var reply = p.Send(ip, 500);
+            return (reply != null && reply.Status == IPStatus.Success);
+        }
+
+        // Check IP and Port if available
+        public static bool IsTcpPortOpen(string ip, int port)
+        {
+            var tcp = new TcpClient();
+            IAsyncResult ar = tcp.BeginConnect(ip, port, null, null);
+            bool success = ar.AsyncWaitHandle.WaitOne(1000, false); // Wait max 1000ms
+            if (!success)
+                return false; // Timeout
+            tcp.EndConnect(ar);
+            return tcp.Connected;
+        }
+
         private void SendPayload(PayloadType type)
         {
             string InfoMessage = "";
@@ -353,18 +374,58 @@ namespace PayloadInjector
                 switch (type)
                 {
                     case PayloadType.PS4ElfLoader:
+                        if (PingHost(tbIPAddress.Text) == false)
+                        {
+                            MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //{
+                        //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
                         NetSocket.SendFile(ps4elfldr);
                         break;
                     case PayloadType.PS5ElfLoader:
+                        if (PingHost(tbIPAddress.Text) == false)
+                        {
+                            MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //{
+                        //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
                         NetSocket.SendFile(ps5elfldr);
                         break;
                     case PayloadType.BinFile:
+                        if (PingHost(tbIPAddress.Text) == false)
+                        {
+                            MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //{
+                        //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
                         NetSocket.SendFile(BinFile);
                         break;
                     case PayloadType.ElfFile:
+                        if (PingHost(tbIPAddress.Text) == false)
+                        {
+                            MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbElfPort.Text)) == false)
+                        //{
+                        //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.\n\nCheck if Elf Loader Payload is active.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //    return;
+                        //}
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbElfPort.Text)));
                         NetSocket.SendFile(ElfFile);
                         break;
