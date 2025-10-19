@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,6 +35,7 @@ namespace PayloadInjector
         {
             ps4elfldr = System.IO.Path.Combine(Application.StartupPath, "ps4elfldr.bin");
             ps5elfldr = System.IO.Path.Combine(Application.StartupPath, "ps5elfldr.bin");
+            // Check if elf loader bin files exists. Enable buttons accordingly.
             if (!System.IO.File.Exists(ps4elfldr))
                 ps4elfldr = "";
             if (!System.IO.File.Exists(ps5elfldr))
@@ -45,7 +46,10 @@ namespace PayloadInjector
                 btnSendPs5ElfLdr.Enabled = false;
             btnSendBin.Enabled = false;
             btnSendElf.Enabled = false;
+            // Apply dark theme
             ApplyTheme_CarbonBlue();
+            //ApplyTheme_CyberNeon();
+            //ApplyTheme_SteelGray();
         }
 
         void ApplyTheme_CarbonBlue()
@@ -158,12 +162,14 @@ namespace PayloadInjector
 
         private void tbBinPort_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // Check if key is digit
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 e.Handled = true;
         }
 
         private void tbBinPort_TextChanged(object sender, EventArgs e)
         {
+            // Enable buttons if valid info available
             if (tbBinPort.TextLength < 1)
             {
                 btnSendBin.Enabled = false;
@@ -186,6 +192,7 @@ namespace PayloadInjector
 
         private void tbElfPort_TextChanged(object sender, EventArgs e)
         {
+            // Enable buttons if valid info available
             if (tbElfPort.TextLength < 1)
                 btnSendElf.Enabled = false;
             else
@@ -197,6 +204,7 @@ namespace PayloadInjector
 
         private void tbIPAddress_TextChanged(object sender, EventArgs e)
         {
+            // Enable buttons if valid info available
             if (tbIPAddress.TextLength < 1)
             {
                 btnSendBin.Enabled = false;
@@ -220,20 +228,25 @@ namespace PayloadInjector
         private void tbIPAddress_KeyPress(object sender, KeyPressEventArgs e)
         {
             int dot_count = 0;
+            // Count dots
             for (int i = 0; i < tbIPAddress.TextLength; i++)
             {
                 if (tbIPAddress.Text[i] == '.')
                     dot_count++;
             }
+            // Max 3 dots allowed
             if ((dot_count > 2) && (e.KeyChar == '.'))
                 e.Handled = true;
+            // Two dots consecutively not allowed
             if (tbIPAddress.TextLength > 0)
             {
                 if ((tbIPAddress.Text[tbIPAddress.TextLength - 1] == '.') && (e.KeyChar == '.'))
                     e.Handled = true;
             }
+            // First char can not be dot
             if ((tbIPAddress.TextLength == 0) && (e.KeyChar == '.'))
                 e.Handled = true;
+            // Check if key is digit or dot
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
                 e.Handled = true;
         }
@@ -251,6 +264,7 @@ namespace PayloadInjector
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files.Length > 0)
             {
+                // Get the first file only
                 string filePath = files[0];
                 string extension = System.IO.Path.GetExtension(filePath).ToLower();
 
@@ -266,6 +280,7 @@ namespace PayloadInjector
                     lbBinSize.Text = string.Format("File size: {0:N2} MB", sizeMB);
                     tbBinFile.Text = fileName;
                     BinFile = filePath;
+                    // Enable buttons if valid info available
                     if ((tbIPAddress.TextLength > 0) && (tbBinPort.TextLength > 0))
                         btnSendBin.Enabled = true;
                 }
@@ -280,6 +295,7 @@ namespace PayloadInjector
                     lbElfSize.Text = string.Format("File size: {0:N2} MB", sizeMB);
                     tbElfFile.Text = fileName;
                     ElfFile = filePath;
+                    // Enable buttons if valid info available
                     if ((tbIPAddress.TextLength > 0) && (tbElfPort.TextLength > 0))
                         btnSendElf.Enabled = true;
                 }
@@ -324,9 +340,11 @@ namespace PayloadInjector
                     InfoMessage = "Inject .elf Payload to port " + tbElfPort.Text + "?";
                     break;
             }
+            // Validation of send
             if (MessageBox.Show(InfoMessage, "Inject Payload?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
                 return;
             NetSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            // Limit buffer size to 8kB to improve reliability over unstable networks
             NetSocket.SendBufferSize = 8192;
             NetSocket.SendTimeout = 5000;
             NetSocket.ReceiveTimeout = 5000;
