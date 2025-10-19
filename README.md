@@ -1,4 +1,4 @@
-# Payload Injector v1.0
+# Payload Injector v1.1
 
 **Payload Injector** — A lightweight Windows (C# WinForms) tool for sending ELF/BIN payloads to PlayStation 4 and PlayStation 5 consoles over a local network.
 
@@ -17,6 +17,7 @@ This project was built using **Visual Studio 2012** and targets **.NET Framework
 * Drag & Drop support and separate injection controls for `.elf` and `.bin` files
 * Manual input for target IP address and port
 * Integrated ELF loader for PS4 and PS5
+* Built-in ping check before establishing connection
 * Default transfer packet size reduced to **8 KB** to improve reliability over unstable networks
 * Clean, dark-themed interface
 
