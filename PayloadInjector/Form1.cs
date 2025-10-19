@@ -47,6 +47,11 @@ namespace PayloadInjector
                 btnSendPs5ElfLdr.Enabled = false;
             btnSendBin.Enabled = false;
             btnSendElf.Enabled = false;
+            tbBinFile.ContextMenu = new ContextMenu();
+            tbElfFile.ContextMenu = new ContextMenu();
+            tbIPAddress.ContextMenu = new ContextMenu();
+            tbBinPort.ContextMenu = new ContextMenu();
+            tbElfPort.ContextMenu = new ContextMenu();
             // Apply dark theme
             ApplyTheme_CarbonBlue();
             //ApplyTheme_CyberNeon();
@@ -440,3 +445,4 @@ namespace PayloadInjector
         }
     }
 }
+
