@@ -69,7 +69,10 @@ Contributions are welcome! Feel free to open pull requests for bug fixes, UI imp
 
 ## Acknowledgments
 
-Special thanks to [barisyild](https://github.com/barisyild) for the [AirPSX](https://github.com/barisyild/airpsx) project, which this tool can be used to launch ELF payloads for.
+Special thanks to:
+
+[barisyild](https://github.com/barisyild) for the [AirPSX](https://github.com/barisyild/airpsx) project, which this tool can be used to launch ELF payloads for.
+[PS4 Payload Dev Organization](https://github.com/ps4-payload-dev) for providing the open-source elfldr project, which serves as the core ELF loader used in this application.
 
 ---
 
