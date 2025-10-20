@@ -27,6 +27,12 @@ This project was built using **Visual Studio 2012** and targets **.NET Framework
 
 ---
 
+## ToDo List
+
+* PS5 support & tests (binloader & elfloader requirements?)
+
+---
+
 ## Requirements
 
 * Windows operating system
