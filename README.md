@@ -2,6 +2,10 @@
 
 **Payload Injector** — A lightweight Windows (C# WinForms) tool for sending ELF/BIN payloads to PlayStation 4 and PlayStation 5 consoles over a local network.
 
+<p align="center">
+  <img src="PayloadInjector/payload_injector.png" alt="Payload_Injector" width="360" height="400"/>
+</p>
+
 ---
 
 ## Overview
