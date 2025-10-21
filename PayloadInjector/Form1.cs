@@ -47,6 +47,8 @@ namespace PayloadInjector
                 btnSendPs5ElfLdr.Enabled = false;
             btnSendBin.Enabled = false;
             btnSendElf.Enabled = false;
+            // Hide loading message
+            gbPayloading.Visible = false;
             // Disable right click menu for text boxes
             tbBinFile.ContextMenu = new ContextMenu();
             tbElfFile.ContextMenu = new ContextMenu();
@@ -65,7 +67,7 @@ namespace PayloadInjector
             this.BackColor = Color.FromArgb(25, 25, 30);
 
             // GroupBoxes
-            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3 })
+            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3, gbPayloading })
             {
                 grp.BackColor = Color.FromArgb(30, 30, 35);
                 grp.ForeColor = Color.White;
@@ -89,7 +91,7 @@ namespace PayloadInjector
             }
 
             // Labels
-            foreach (var lbl in new[] { label1, label2, label3, label4, lbBinSize, lbElfSize })
+            foreach (var lbl in new[] { label1, label2, label3, label4, label5, lbBinSize, lbElfSize })
             {
                 lbl.ForeColor = Color.FromArgb(190, 200, 220);
             }
@@ -101,7 +103,7 @@ namespace PayloadInjector
             this.BackColor = Color.FromArgb(15, 15, 18);
 
             // GroupBoxes
-            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3 })
+            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3, gbPayloading })
             {
                 grp.BackColor = Color.FromArgb(20, 20, 25);
                 grp.ForeColor = Color.LimeGreen;
@@ -125,7 +127,7 @@ namespace PayloadInjector
             }
 
             // Labels
-            foreach (var lbl in new[] { label1, label2, label3, label4, lbBinSize, lbElfSize })
+            foreach (var lbl in new[] { label1, label2, label3, label4, label5, lbBinSize, lbElfSize })
             {
                 lbl.ForeColor = Color.FromArgb(0, 220, 160);
             }
@@ -137,7 +139,7 @@ namespace PayloadInjector
             this.BackColor = Color.FromArgb(35, 35, 38);
 
             // GroupBoxes
-            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3 })
+            foreach (var grp in new[] { groupBox1, groupBox2, groupBox3, gbPayloading })
             {
                 grp.BackColor = Color.FromArgb(45, 45, 48);
                 grp.ForeColor = Color.Gainsboro;
@@ -161,7 +163,7 @@ namespace PayloadInjector
             }
 
             // Labels
-            foreach (var lbl in new[] { label1, label2, label3, label4, lbBinSize, lbElfSize })
+            foreach (var lbl in new[] { label1, label2, label3, label4, label5, lbBinSize, lbElfSize })
             {
                 lbl.ForeColor = Color.FromArgb(210, 210, 210);
             }
@@ -333,7 +335,7 @@ namespace PayloadInjector
         public static bool PingHost(string ip)
         {
             var p = new Ping();
-            var reply = p.Send(ip, 500);
+            var reply = p.Send(ip, 1000);
             return (reply != null && reply.Status == IPStatus.Success);
         }
 
@@ -393,6 +395,10 @@ namespace PayloadInjector
                         //    return;
                         //}
                         //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        gbPayloading.Visible = true;
+                        gbPayloading.BringToFront();
+                        gbPayloading.Refresh();
+                        Application.DoEvents();
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), 9090));
                         NetSocket.SendFile(ps4elfldr);
                         break;
@@ -408,6 +414,10 @@ namespace PayloadInjector
                         //    return;
                         //}
                         //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        gbPayloading.Visible = true;
+                        gbPayloading.BringToFront();
+                        gbPayloading.Refresh();
+                        Application.DoEvents();
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), 9020));
                         NetSocket.SendFile(ps5elfldr);
                         break;
@@ -422,6 +432,10 @@ namespace PayloadInjector
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
+                        gbPayloading.Visible = true;
+                        gbPayloading.BringToFront();
+                        gbPayloading.Refresh();
+                        Application.DoEvents();
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
                         NetSocket.SendFile(BinFile);
                         break;
@@ -436,15 +450,21 @@ namespace PayloadInjector
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.\n\nCheck if Elf Loader Payload is active.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
+                        gbPayloading.Visible = true;
+                        gbPayloading.BringToFront();
+                        gbPayloading.Refresh();
+                        Application.DoEvents();
                         NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbElfPort.Text)));
                         NetSocket.SendFile(ElfFile);
                         break;
                 }
                 NetSocket.Shutdown(SocketShutdown.Both);
+                gbPayloading.Visible = false;
                 MessageBox.Show("Payload injected!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
+                gbPayloading.Visible = false;
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
