@@ -35,7 +35,7 @@ namespace PayloadInjector
         private void Form1_Load(object sender, EventArgs e)
         {
             ps4elfldr = System.IO.Path.Combine(Application.StartupPath, "ps4elfldr.bin");
-            ps5elfldr = System.IO.Path.Combine(Application.StartupPath, "ps5elfldr.bin");
+            ps5elfldr = System.IO.Path.Combine(Application.StartupPath, "ps5elfldr.elf");
             // Check if elf loader bin files exists. Enable buttons accordingly.
             if (!System.IO.File.Exists(ps4elfldr))
                 ps4elfldr = "";
@@ -47,6 +47,7 @@ namespace PayloadInjector
                 btnSendPs5ElfLdr.Enabled = false;
             btnSendBin.Enabled = false;
             btnSendElf.Enabled = false;
+            // Disable right click menu for text boxes
             tbBinFile.ContextMenu = new ContextMenu();
             tbElfFile.ContextMenu = new ContextMenu();
             tbIPAddress.ContextMenu = new ContextMenu();
@@ -354,10 +355,12 @@ namespace PayloadInjector
             switch (type)
             {
                 case PayloadType.PS4ElfLoader:
-                    InfoMessage = "Inject PS4 Elf Loader Payload to port " + tbBinPort.Text + "?";
+                    //InfoMessage = "Inject PS4 Elf Loader Payload to port " + tbBinPort.Text + "?";
+                    InfoMessage = "Inject PS4 Elf Loader Payload to GoldHEN port " + "9090" + "?";
                     break;
                 case PayloadType.PS5ElfLoader:
-                    InfoMessage = "Inject PS5 Elf Loader Payload to port " + tbBinPort.Text + "?";
+                    //InfoMessage = "Inject PS5 Elf Loader Payload to port " + tbBinPort.Text + "?";
+                    InfoMessage = "Inject PS5 Elf Loader Payload to port " + "9020" + "?";
                     break;
                 case PayloadType.BinFile:
                     InfoMessage = "Inject .bin Payload to port " + tbBinPort.Text + "?";
@@ -389,7 +392,8 @@ namespace PayloadInjector
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
-                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), 9090));
                         NetSocket.SendFile(ps4elfldr);
                         break;
                     case PayloadType.PS5ElfLoader:
@@ -403,7 +407,8 @@ namespace PayloadInjector
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
-                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), 9020));
                         NetSocket.SendFile(ps5elfldr);
                         break;
                     case PayloadType.BinFile:
@@ -445,4 +450,3 @@ namespace PayloadInjector
         }
     }
 }
-
