@@ -1,4 +1,4 @@
-# Payload Injector v1.1
+# Payload Injector v1.2
 
 **Payload Injector** — A lightweight Windows (C# WinForms) tool for sending ELF/BIN payloads to PlayStation 4 and PlayStation 5 consoles over a local network.
 
@@ -61,6 +61,11 @@ This project was built using **Visual Studio 2012** and targets **.NET Framework
 5. Click the `Inject` button to start sending the payload.
 
 > This project can be used to **send and execute the AirPSX ELF payload**, available at [AirPSX GitHub Repository](https://github.com/barisyild/airpsx).
+>
+> **Note:**  
+> The **Inject PS4 ELF Loader** button is fixed to port **9090**, which is used by **GoldHEN’s binloader service**.  
+> The **Inject PS5 ELF Loader** button is fixed to port **9020**, corresponding to the **bootstrap service**.  
+> These ports are preset to ensure proper compatibility with standard payload listeners on both consoles.
 
 ---
 
@@ -82,7 +87,7 @@ Contributions are welcome! Feel free to open pull requests for bug fixes, UI imp
 Special thanks to:
 
 * [barisyild](https://github.com/barisyild) for the [AirPSX](https://github.com/barisyild/airpsx) project, which this tool can be used to launch the ELF payload for.
-* [PS4 Payload Dev Organization](https://github.com/ps4-payload-dev) for providing the open-source elfldr project, which serves as the core ELF loader used in this application.
+* [PS4 Payload Dev Organization](https://github.com/ps4-payload-dev) and [PS5 Payload Dev Organization](https://github.com/ps5-payload-dev) for providing the open-source elfldr project, which serves as the core ELF loader used in this application.
 
 ---
 
