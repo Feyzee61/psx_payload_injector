@@ -32,6 +32,43 @@ namespace PayloadInjector
             InitializeComponent();
         }
 
+        private void SaveConfig()
+        {
+            try
+            {
+                string configPath = Path.Combine(Application.StartupPath, "configfile.cfg");
+                using (StreamWriter sw = new StreamWriter(configPath))
+                {
+                    sw.WriteLine(tbIPAddress.Text);
+                    sw.WriteLine(tbBinPort.Text);
+                    sw.WriteLine(tbElfPort.Text);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while saving config: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadConfig()
+        {
+            try
+            {
+                string configPath = Path.Combine(Application.StartupPath, "configfile.cfg");
+                if (File.Exists(configPath))
+                {
+                    string[] lines = File.ReadAllLines(configPath);
+                    if (lines.Length >= 1)
+                        tbIPAddress.Text = lines[0];
+                    if (lines.Length >= 2)
+                        tbBinPort.Text = lines[1];
+                    if (lines.Length >= 3)
+                        tbElfPort.Text = lines[2];
+                }
+            }
+            catch { }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             ps4elfldr = System.IO.Path.Combine(Application.StartupPath, "ps4elfldr.bin");
@@ -59,6 +96,7 @@ namespace PayloadInjector
             ApplyTheme_CarbonBlue();
             //ApplyTheme_CyberNeon();
             //ApplyTheme_SteelGray();
+            LoadConfig();
         }
 
         void ApplyTheme_CarbonBlue()
@@ -468,5 +506,11 @@ namespace PayloadInjector
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveConfig();
+        }
     }
 }
+
