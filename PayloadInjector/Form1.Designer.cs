@@ -138,7 +138,7 @@ namespace PayloadInjector
             this.groupBox2.Size = new System.Drawing.Size(336, 111);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "BIN Injector";
+            this.groupBox2.Text = "File Injector";
             // 
             // lbBinSize
             // 
@@ -146,9 +146,9 @@ namespace PayloadInjector
             this.lbBinSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lbBinSize.Location = new System.Drawing.Point(6, 47);
             this.lbBinSize.Name = "lbBinSize";
-            this.lbBinSize.Size = new System.Drawing.Size(139, 16);
+            this.lbBinSize.Size = new System.Drawing.Size(180, 16);
             this.lbBinSize.TabIndex = 8;
-            this.lbBinSize.Text = "Load a bin file to inject";
+            this.lbBinSize.Text = "Load bin, lua or js file to inject";
             // 
             // tbBinFile
             // 
@@ -158,7 +158,7 @@ namespace PayloadInjector
             this.tbBinFile.Size = new System.Drawing.Size(324, 22);
             this.tbBinFile.TabIndex = 4;
             this.tbBinFile.TabStop = false;
-            this.tbBinFile.Text = "Drag & Drop .bin file";
+            this.tbBinFile.Text = "Drag & Drop a file";
             // 
             // label3
             // 
@@ -189,7 +189,7 @@ namespace PayloadInjector
             this.btnSendBin.Name = "btnSendBin";
             this.btnSendBin.Size = new System.Drawing.Size(80, 32);
             this.btnSendBin.TabIndex = 6;
-            this.btnSendBin.Text = "Inject Bin";
+            this.btnSendBin.Text = "Inject File";
             this.btnSendBin.UseVisualStyleBackColor = true;
             this.btnSendBin.Click += new System.EventHandler(this.btnSendBin_Click);
             // 
@@ -306,7 +306,7 @@ namespace PayloadInjector
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Payload Injector v1.4 by Feyzee";
+            this.Text = "Payload Injector v1.6 by Feyzee";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -349,5 +349,4 @@ namespace PayloadInjector
         private System.Windows.Forms.Label label5;
     }
 }
-
 
