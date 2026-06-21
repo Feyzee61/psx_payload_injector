@@ -316,7 +316,7 @@ namespace PayloadInjector
                 string extension = System.IO.Path.GetExtension(filePath).ToLower();
 
                 // Allow only .bin or .elf files
-                if (extension == ".bin")
+                if ((extension == ".bin") || (extension == ".lua") || (extension == ".js"))
                 {
                     string fileName = System.IO.Path.GetFileName(filePath); // only file name + extension
                     // Read file size
@@ -403,7 +403,7 @@ namespace PayloadInjector
                     InfoMessage = "Inject PS5 Elf Loader Payload to port " + "9020" + "?";
                     break;
                 case PayloadType.BinFile:
-                    InfoMessage = "Inject .bin Payload to port " + tbBinPort.Text + "?";
+                    InfoMessage = "Inject Payload to port " + tbBinPort.Text + "?";
                     break;
                 case PayloadType.ElfFile:
                     InfoMessage = "Inject .elf Payload to port " + tbElfPort.Text + "?";
@@ -427,12 +427,12 @@ namespace PayloadInjector
                             MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt32(tbBinPort.Text)) == false)
                         //{
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
-                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt32(tbBinPort.Text)));
                         gbPayloading.Visible = true;
                         gbPayloading.BringToFront();
                         gbPayloading.Refresh();
@@ -446,12 +446,12 @@ namespace PayloadInjector
                             MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt32(tbBinPort.Text)) == false)
                         //{
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
                         //}
-                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        //NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt32(tbBinPort.Text)));
                         gbPayloading.Visible = true;
                         gbPayloading.BringToFront();
                         gbPayloading.Refresh();
@@ -465,7 +465,7 @@ namespace PayloadInjector
                             MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbBinPort.Text)) == false)
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt32(tbBinPort.Text)) == false)
                         //{
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
@@ -474,7 +474,7 @@ namespace PayloadInjector
                         gbPayloading.BringToFront();
                         gbPayloading.Refresh();
                         Application.DoEvents();
-                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbBinPort.Text)));
+                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt32(tbBinPort.Text)));
                         NetSocket.SendFile(BinFile);
                         break;
                     case PayloadType.ElfFile:
@@ -483,7 +483,7 @@ namespace PayloadInjector
                             MessageBox.Show("Error: Connection failed. Can not ping.\n\nPlease check the IP address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt16(tbElfPort.Text)) == false)
+                        //if (IsTcpPortOpen(tbIPAddress.Text, Convert.ToInt32(tbElfPort.Text)) == false)
                         //{
                         //    MessageBox.Show("Error: Connection failed. Please check the IP address and port.\n\nCheck if Elf Loader Payload is active.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         //    return;
@@ -492,7 +492,7 @@ namespace PayloadInjector
                         gbPayloading.BringToFront();
                         gbPayloading.Refresh();
                         Application.DoEvents();
-                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt16(tbElfPort.Text)));
+                        NetSocket.Connect(new IPEndPoint(IPAddress.Parse(tbIPAddress.Text), Convert.ToInt32(tbElfPort.Text)));
                         NetSocket.SendFile(ElfFile);
                         break;
                 }
@@ -513,4 +513,3 @@ namespace PayloadInjector
         }
     }
 }
-
