@@ -1,4 +1,4 @@
-# Payload Injector v1.4
+# Payload Injector
 
 **Payload Injector** — A lightweight Windows (C# WinForms) tool for sending ELF/BIN payloads to PlayStation 4 and PlayStation 5 consoles over a local network.
 
