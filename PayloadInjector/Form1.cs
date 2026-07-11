@@ -410,8 +410,8 @@ namespace PayloadInjector
                     break;
             }
             // Validation of send
-            if (MessageBox.Show(InfoMessage, "Inject Payload?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
-                return;
+            //if (MessageBox.Show(InfoMessage, "Inject Payload?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != System.Windows.Forms.DialogResult.Yes)
+            //    return;
             NetSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             // Limit buffer size to 8kB to improve reliability over unstable networks
             NetSocket.SendBufferSize = 8192;
